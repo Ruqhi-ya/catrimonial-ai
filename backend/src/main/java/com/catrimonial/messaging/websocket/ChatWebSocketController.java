@@ -46,21 +46,21 @@ public class ChatWebSocketController {
     @MessageMapping("/chat.typing")
     public void handleTyping(@Payload TypingNotification notification, Principal principal) {
         messagingTemplate.convertAndSendToUser(
-                notification.getReceiverId().toString(),
+                notification.receiverId().toString(),
                 "/queue/typing",
-                new TypingNotification(UUID.fromString(principal.getName()), notification.getReceiverId(), notification.isTyping())
+                new TypingNotification(UUID.fromString(principal.getName()), notification.receiverId(), notification.isTyping())
         );
     }
 
     @MessageMapping("/chat.read")
     public void handleReadReceipt(@Payload ReadReceipt receipt, Principal principal) {
         UUID readerId = UUID.fromString(principal.getName());
-        messagingService.markAsRead(readerId, receipt.getSenderId());
+        messagingService.markAsRead(readerId, receipt.senderId());
 
         messagingTemplate.convertAndSendToUser(
-                receipt.getSenderId().toString(),
+                receipt.senderId().toString(),
                 "/queue/read-receipts",
-                new ReadReceipt(readerId, receipt.getSenderId())
+                new ReadReceipt(readerId, receipt.senderId())
         );
     }
 
