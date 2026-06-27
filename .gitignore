@@ -1,0 +1,58 @@
+# ============================================
+# Catrimonial AI - Git Ignore
+# ============================================
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ============================================
+# Backend (Java/Spring Boot)
+# ============================================
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/*.log
+backend/logs/
+
+# ============================================
+# Frontend (React/Vite)
+# ============================================
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+frontend/*.tsbuildinfo
+
+# ============================================
+# AI Service (Python)
+# ============================================
+ai-service/__pycache__/
+ai-service/**/__pycache__/
+ai-service/*.pyc
+ai-service/.pytest_cache/
+ai-service/venv/
+ai-service/.venv/
+ai-service/models/*.h5
+ai-service/models/*.pkl
+
+# ============================================
+# Docker
+# ============================================
+docker/volumes/
+
+# ============================================
+# Logs & Data
+# ============================================
+*.log
+logs/
+data/
