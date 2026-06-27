@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
-import { Users, TrendingUp, MessageSquare, Star } from 'lucide-react';
+import { Users } from 'lucide-react';
 import { PageTransition } from '@/components/layout/PageTransition';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 export function CommunityPage() {
