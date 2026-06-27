@@ -35,7 +35,7 @@ export function AddCatPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors }, watch } = useForm<CatFormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<CatFormData>({
     resolver: zodResolver(catSchema),
     defaultValues: {
       vaccinated: false,
