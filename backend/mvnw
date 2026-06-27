@@ -1,0 +1,53 @@
+#!/bin/sh
+# Maven Wrapper script
+# Downloads and runs Maven if not already available
+
+set -e
+
+MAVEN_PROJECTBASEDIR="${MAVEN_BASEDIR:-$(cd "$(dirname "$0")" && pwd)}"
+MAVEN_WRAPPER_JAR="$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar"
+MAVEN_WRAPPER_PROPERTIES="$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.properties"
+
+# Determine Maven home
+if [ -n "$M2_HOME" ]; then
+  MAVEN_HOME="$M2_HOME"
+elif [ -n "$MAVEN_HOME" ]; then
+  MAVEN_HOME="$MAVEN_HOME"
+else
+  MAVEN_HOME="$HOME/.m2/wrapper/dists/apache-maven-3.9.6"
+fi
+
+MAVEN_CMD="$MAVEN_HOME/bin/mvn"
+
+# If Maven not installed via wrapper, try system Maven
+if [ ! -f "$MAVEN_CMD" ]; then
+  if command -v mvn > /dev/null 2>&1; then
+    exec mvn "$@"
+  fi
+  
+  # Download Maven
+  echo "Downloading Maven..."
+  DIST_URL=$(grep "distributionUrl" "$MAVEN_WRAPPER_PROPERTIES" | cut -d'=' -f2-)
+  mkdir -p "$MAVEN_HOME"
+  
+  if command -v curl > /dev/null 2>&1; then
+    curl -fsSL "$DIST_URL" -o /tmp/maven.zip
+  elif command -v wget > /dev/null 2>&1; then
+    wget -q "$DIST_URL" -O /tmp/maven.zip
+  else
+    echo "Error: curl or wget required to download Maven" >&2
+    exit 1
+  fi
+  
+  unzip -q -o /tmp/maven.zip -d "$MAVEN_HOME/.."
+  rm /tmp/maven.zip
+  
+  # Find the extracted directory
+  MAVEN_EXTRACTED=$(find "$MAVEN_HOME/.." -maxdepth 1 -name "apache-maven-*" -type d | head -1)
+  if [ -n "$MAVEN_EXTRACTED" ] && [ "$MAVEN_EXTRACTED" != "$MAVEN_HOME" ]; then
+    rm -rf "$MAVEN_HOME"
+    mv "$MAVEN_EXTRACTED" "$MAVEN_HOME"
+  fi
+fi
+
+exec "$MAVEN_CMD" "$@"
