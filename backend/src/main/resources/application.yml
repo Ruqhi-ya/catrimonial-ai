@@ -18,9 +18,6 @@ spring:
       minimum-idle: 2
       idle-timeout: 300000
       connection-timeout: 30000
-      data-source-properties:
-        sslmode: require
-        ssl: true
 
   # JPA Configuration
   jpa:
